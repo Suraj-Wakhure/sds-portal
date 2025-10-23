@@ -18,11 +18,10 @@ export default function Navbar() {
   return (
     <>
       <nav className="bg-[#0a192f] px-6 py-4 flex justify-between items-center shadow-md w-auto h-20">
-        <h1 className="ml-3 sm:ml-5 md:!ml-7 text-3xl sm:text-4xl md:!text-5xl font-bold text-cyan-400">
+        <h1 className="ml-6 sm:ml-8 md:!ml-12 text-3xl sm:text-4xl md:!text-5xl font-bold text-cyan-400">
           SDS Portal
         </h1>
         
-        {/* Desktop Navigation - exact original style */}
         <ul className="hidden md:flex space-x-6 !justify-center items-center [&>*]:!m-10">
           <li><Link to="/" className={linkClass("/")}>Home</Link></li>
           <li><Link to="/about" className={linkClass("/about")}>About</Link></li>
@@ -30,7 +29,6 @@ export default function Navbar() {
           <li><Link to="/projects" className={linkClass("/projects")}>Projects</Link></li>
         </ul>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-gray-300 hover:text-cyan-400 transition-colors p-2 -mr-2"
@@ -40,11 +38,10 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Navigation Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-[#0a192f] shadow-lg border-t border-gray-700">
           <ul className="flex flex-col">
-            <li>
+            <li className="text-center">
               <Link
                 to="/"
                 className={`block py-4 px-6 border-b border-gray-800 ${linkClass("/")}`}
@@ -53,7 +50,7 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
-            <li>
+            <li className="text-center">
               <Link
                 to="/about"
                 className={`block py-4 px-6 border-b border-gray-800 ${linkClass("/about")}`}
@@ -62,7 +59,7 @@ export default function Navbar() {
                 About
               </Link>
             </li>
-            <li>
+            <li className="text-center">
               <Link
                 to="/teams"
                 className={`block py-4 px-6 border-b border-gray-800 ${linkClass("/teams")}`}
@@ -71,7 +68,7 @@ export default function Navbar() {
                 Team
               </Link>
             </li>
-            <li>
+            <li className="text-center">
               <Link
                 to="/projects"
                 className={`block py-4 px-6 ${linkClass("/projects")}`}
