@@ -14,7 +14,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "64px 20px",
+    padding: "clamp(20px, 4vw, 64px) clamp(12px, 3vw, 20px)",
     color: "#e6f9f8",
     fontFamily: `Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial`,
   },
@@ -30,12 +30,12 @@ const styles = {
     width: "100%",
     maxWidth: 600,
     margin: "0 auto",
-    padding: "24px",
+    padding: "clamp(16px, 3vw, 24px)",
     boxSizing: "border-box",
   },
   header: {
     textAlign: "center",
-    marginBottom: 56,
+    marginBottom: "clamp(32px, 6vw, 56px)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -44,7 +44,7 @@ const styles = {
     fontWeight: 800,
     margin: 0,
     lineHeight: 0.95,
-    fontSize: "clamp(32px, 8.5vw, 56px)",
+    fontSize: "clamp(28px, 7vw, 56px)",
     backgroundImage: "linear-gradient(90deg,#7ef0e6,#6fb3ff 50%, #7ef0e6)",
     WebkitBackgroundClip: "text",
     backgroundClip: "text",
@@ -54,24 +54,12 @@ const styles = {
     animation: "gradientAnim 6s linear infinite",
   },
   underline: {
-    width: 144,
-    height: 6,
+    width: "clamp(100px, 30vw, 144px)",
+    height: "clamp(4px, 1vw, 6px)",
     borderRadius: 999,
-    marginTop: 12,
-    marginBottom: 24,
+    marginTop: "clamp(8px, 2vw, 12px)",
+    marginBottom: "clamp(16px, 3vw, 24px)",
     background: "linear-gradient(90deg,#14b8a6,#3b82f6)",
-  },
-  subtitle: {
-    color: "#94a3b8",
-    fontSize: 18,
-    maxWidth: 900,
-    margin: "0 auto",
-  },
-  grid: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 28,
-    alignItems: "center",
   },
   teamCard: {
     width: "100%",
@@ -98,14 +86,14 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: 16,
+    padding: "clamp(10px, 2.5vw, 16px)",
     boxSizing: "border-box",
     background: "linear-gradient(to top, rgba(7,11,20,0.75), rgba(7,11,20,0.0))",
     backdropFilter: "blur(6px)",
   },
   overlayName: {
     margin: 0,
-    fontSize: 16,
+    fontSize: "clamp(13px, 3vw, 16px)",
     color: "#5eead4",
     fontWeight: 600,
     textAlign: "center",
@@ -113,20 +101,20 @@ const styles = {
   overlayRole: {
     margin: 0,
     color: "#cbd5e1",
-    fontSize: 13,
+    fontSize: "clamp(11px, 2.5vw, 13px)",
     textAlign: "center",
   },
   overlayIcons: {
     display: "flex",
-    gap: 8,
-    marginTop: 8,
+    gap: "clamp(5px, 1.5vw, 8px)",
+    marginTop: "clamp(6px, 1.5vw, 8px)",
   },
   overlayIcon: {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: 6,
-    borderRadius: 8,
+    padding: "clamp(4px, 1vw, 6px)",
+    borderRadius: "clamp(6px, 1.5vw, 8px)",
     background: "rgba(15,23,42,0.42)",
     color: "#e2e8f0",
     transition: "transform .18s ease, color .18s ease",
@@ -138,7 +126,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    padding: "clamp(10px, 2vw, 20px)",
   },
   modalBackdrop: {
     position: "absolute",
@@ -149,42 +137,44 @@ const styles = {
   modalContent: {
     position: "relative",
     zIndex: 10,
-    maxWidth: 960,
+    maxWidth: "min(960px, 95vw)",
     width: "100%",
     display: "flex",
     flexWrap: "wrap",
     background: "linear-gradient(180deg, rgba(15,20,32,0.98), rgba(8,10,14,0.98))",
-    borderRadius: 12,
+    borderRadius: "clamp(8px, 2vw, 12px)",
     boxShadow: "0 20px 60px rgba(2,6,23,0.7)",
     overflow: "hidden",
+    maxHeight: "90vh",
+    overflowY: "auto",
   },
   modalClose: {
     position: "absolute",
-    top: 12,
-    right: 12,
+    top: "clamp(8px, 2vw, 12px)",
+    right: "clamp(8px, 2vw, 12px)",
     zIndex: 20,
     background: "rgba(15,23,42,0.6)",
-    borderRadius: 8,
-    padding: 6,
+    borderRadius: "clamp(6px, 1.5vw, 8px)",
+    padding: "clamp(4px, 1vw, 6px)",
     border: 0,
     color: "#e6f9f8",
     cursor: "pointer",
   },
   modalImageWrap: {
-    flex: "1 1 320px",
-    minWidth: 280,
-    maxWidth: 480,
+    flex: "1 1 100%",
+    minWidth: "100%",
+    maxWidth: "100%",
   },
   modalImage: {
     display: "block",
     width: "100%",
     height: "100%",
-    maxHeight: 360,
+    maxHeight: "min(360px, 40vh)",
     objectFit: "cover",
   },
   modalInfo: {
-    flex: "1 1 420px",
-    padding: 20,
+    flex: "1 1 100%",
+    padding: "clamp(16px, 3vw, 20px)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -192,38 +182,38 @@ const styles = {
   },
   modalName: {
     color: "#67e8f9",
-    fontSize: 22,
+    fontSize: "clamp(18px, 4vw, 22px)",
     margin: "0 0 6px",
   },
   modalRole: {
     color: "#cbd5e1",
     margin: 0,
     fontWeight: 500,
+    fontSize: "clamp(14px, 3vw, 16px)",
   },
   modalText: {
     color: "#94a3b8",
-    marginTop: 12,
+    marginTop: "clamp(10px, 2vw, 12px)",
     lineHeight: 1.6,
+    fontSize: "clamp(13px, 2.5vw, 15px)",
   },
   modalSocials: {
     display: "flex",
-    gap: 10,
-    marginTop: 12,
+    gap: "clamp(8px, 2vw, 10px)",
+    marginTop: "clamp(10px, 2vw, 12px)",
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
   socialIcon: {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: 8,
-    borderRadius: 8,
+    padding: "clamp(6px, 1.5vw, 8px)",
+    borderRadius: "clamp(6px, 1.5vw, 8px)",
     background: "rgba(15,23,42,0.6)",
     color: "#e6f9f8",
     cursor: "pointer",
     transition: "transform .16s ease",
-  },
-  focusRing: {
-    boxShadow: "0 6px 22px rgba(20,184,166,0.12)",
-    borderRadius: 12,
   },
 };
 
@@ -261,11 +251,11 @@ function ProfileModal({ member, onClose }) {
           </svg>
         </button>
 
-        <div style={styles.modalImageWrap}>
+        <div style={styles.modalImageWrap} className="modal-image-wrap">
           <img src={member.image} alt={member.name} style={styles.modalImage} loading="lazy" onError={handleImgError} />
         </div>
 
-        <div style={styles.modalInfo}>
+        <div style={styles.modalInfo} className="modal-info">
           <h2 id="profile-title" style={styles.modalName}>{member.name}</h2>
           <p style={styles.modalRole}>{member.role}</p>
           <p style={styles.modalText}>{member.bio}</p>
@@ -299,9 +289,9 @@ const TeamCard = ({ member, onOpen }) => {
       <h3 style={styles.overlayName}>{member.name}</h3>
       <p style={styles.overlayRole}>{member.role}</p>
       <div style={styles.overlayIcons}>
-        <a href={member.social.instagram} target="_blank" rel="noreferrer" style={styles.overlayIcon}><Instagram size={16} /></a>
-        <a href={member.social.linkedin} target="_blank" rel="noreferrer" style={styles.overlayIcon}><Linkedin size={16} /></a>
-        <a href={member.social.github} target="_blank" rel="noreferrer" style={styles.overlayIcon}><Github size={16} /></a>
+        <a href={member.social.instagram} target="_blank" rel="noreferrer" style={styles.overlayIcon}><Instagram size={14} /></a>
+        <a href={member.social.linkedin} target="_blank" rel="noreferrer" style={styles.overlayIcon}><Linkedin size={14} /></a>
+        <a href={member.social.github} target="_blank" rel="noreferrer" style={styles.overlayIcon}><Github size={14} /></a>
       </div>
     </div>
   );
@@ -309,7 +299,17 @@ const TeamCard = ({ member, onOpen }) => {
   return (
     <div style={styles.teamCard}>
       <button onClick={() => onOpen(member)} style={styles.cardButton}>
-        <TiltedCard imageSrc={member.image} altText={member.name} containerHeight="360px" containerWidth="100%" rotateAmplitude={8} scaleOnHover={1.06} displayOverlayContent overlayContent={overlay} onImageError={handleImgError} />
+        <TiltedCard 
+          imageSrc={member.image} 
+          altText={member.name} 
+          containerHeight="clamp(280px, 50vw, 360px)" 
+          containerWidth="100%" 
+          rotateAmplitude={8} 
+          scaleOnHover={1.06} 
+          displayOverlayContent 
+          overlayContent={overlay} 
+          onImageError={handleImgError} 
+        />
       </button>
     </div>
   );
@@ -337,47 +337,66 @@ export default function TeamPage() {
         <header style={styles.header}>
           <h1 style={styles.title}>CORE TEAM</h1>
           <div style={styles.underline} />
-        
         </header>
 
-       <main
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "60px", // space between cards
-    width: "100%",
-    minHeight: "100vh",
-  }}
->
-  {teamMembers.map((member, idx) => (
-    <div
-      key={idx}
-      style={{
-        width: "75vw",
-        maxWidth: "1000px",
-        padding: "40px 20px",
-        borderRadius: "20px",
-        background: "rgba(255, 255, 255, 0.08)", // translucent glass
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
-      }}
-    >
-      <TeamCard member={member} onOpen={setActive} />
-    </div>
-  ))}
-</main>
-
+        <main style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "clamp(40px, 8vw, 60px)",
+          width: "100%",
+        }}>
+          {teamMembers.map((member, idx) => (
+            <div
+              key={idx}
+              style={{
+                width: "100%",
+                padding: "clamp(20px, 4vw, 40px) clamp(12px, 3vw, 20px)",
+                borderRadius: "clamp(12px, 3vw, 20px)",
+                background: "rgba(255, 255, 255, 0.08)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
+              }}
+            >
+              <TeamCard member={member} onOpen={setActive} />
+            </div>
+          ))}
+        </main>
       </div>
 
       <ProfileModal member={active} onClose={() => setActive(null)} />
 
-      <style>{`@keyframes gradientAnim { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }`}</style>
+      <style>{`
+        @keyframes gradientAnim { 
+          0%,100% { background-position: 0% 50%; } 
+          50% { background-position: 100% 50%; } 
+        }
+        
+        
+        @media (min-width: 768px) {
+          .modal-image-wrap {
+            flex: 1 1 320px !important;
+            min-width: 280px !important;
+            max-width: 480px !important;
+          }
+          .modal-info {
+            flex: 1 1 420px !important;
+          }
+        }
+        
+        
+        @media (min-width: 1024px) {
+          main > div {
+            width: 75vw !important;
+            max-width: 1000px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
