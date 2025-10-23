@@ -1,73 +1,159 @@
-import React from "react";
+import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from "framer-motion";
+
+import './TiltedCard.css';
+
+const springValues = {
+  damping: 30,
+  stiffness: 100,
+  mass: 2
+};
 
 export default function TiltedCard({
   imageSrc,
-  altText,
-  containerHeight = "400px",
-  containerWidth = "100%",
-  rotateAmplitude = 10,
-  scaleOnHover = 1.05,
-  displayOverlayContent = true,
-  overlayContent,
+  altText = 'Tilted card image',
+  captionText = '',
+  containerHeight = '300px',
+  containerWidth = '100%',
+  imageHeight = '300px',
+  imageWidth = '300px',
+  scaleOnHover = 1.1,
+  rotateAmplitude = 14,
+  showMobileWarning = true,
+  showTooltip = true,
+  overlayContent = null,
+  displayOverlayContent = false
 }) {
+  const ref = useRef(null);
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useSpring(x, { stiffness: 50, damping: 30 });
-  const rotateY = useSpring(y, { stiffness: 50, damping: 30 });
+  const mvRotateX = useMotionValue(0);
+  const mvRotateY = useMotionValue(0);
+  const rotateX = useSpring(mvRotateX, springValues);
+  const rotateY = useSpring(mvRotateY, springValues);
+  const scale = useSpring(useMotionValue(1), springValues);
+  const opacity = useSpring(useMotionValue(0));
+  const rotateFigcaption = useSpring(useMotionValue(0), {
+    stiffness: 350,
+    damping: 30,
+    mass: 1
+  });
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
-    // invert axes to get a natural 3D feel
-    x.set((py - 0.5) * rotateAmplitude * 2);
-    y.set((px - 0.5) * rotateAmplitude * 2);
-  };
+  const [lastY, setLastY] = useState(0);
 
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
+  function handleMouse(e) {
+    if (!ref.current) return;
+
+    const rect = ref.current.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left - rect.width / 2;
+    const offsetY = e.clientY - rect.top - rect.height / 2;
+
+    const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+    const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+
+    mvRotateX.set(rotationX);
+    mvRotateY.set(rotationY);
+
+    x.set(e.clientX - rect.left);
+    y.set(e.clientY - rect.top);
+
+    const velocityY = offsetY - lastY;
+    rotateFigcaption.set(-velocityY * 0.6);
+    setLastY(offsetY);
+  }
+
+  function handleMouseEnter() {
+    scale.set(scaleOnHover);
+    opacity.set(1);
+  }
+
+  function handleMouseLeave() {
+    opacity.set(0);
+    scale.set(1);
+    mvRotateX.set(0);
+    mvRotateY.set(0);
+    rotateFigcaption.set(0);
+  }
 
   return (
-    <motion.div
-      className="relative rounded-xl overflow-hidden shadow-lg cursor-pointer"
+    <figure
+      ref={ref}
+      className="tilted-card-figure"
       style={{
         height: containerHeight,
         width: containerWidth,
+        overflow: 'visible',
+        cursor: 'default',
+        userSelect: 'none'
       }}
-      onMouseMove={handleMouseMove}
+      onMouseMove={handleMouse}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      whileHover={{ scale: scaleOnHover }}
     >
-      {/* 3D-tilt wrapper — applies rotateX/rotateY to the image */}
+      {showMobileWarning && (
+        <div
+          className="tilted-card-mobile-alert"
+          style={{ cursor: 'default', userSelect: 'none' }}
+        ></div>
+      )}
+
       <motion.div
-        className="w-full h-full"
+        className="tilted-card-inner"
         style={{
+          width: imageWidth,
+          height: imageHeight,
           rotateX,
           rotateY,
-          // ensure 3D perspective is visible
-          transform: "perspective(1000px)",
-          transformStyle: "preserve-3d",
+          scale,
+          transformOrigin: '50% 50%',
+          cursor: 'default',
+          userSelect: 'none'
         }}
       >
-        <img
+        <motion.img
           src={imageSrc}
           alt={altText}
-          className="object-cover w-full h-full block"
-          loading="lazy"
+          className="tilted-card-img"
+          style={{
+            width: imageWidth,
+            height: imageHeight,
+            cursor: 'default',
+            userSelect: 'none'
+          }}
         />
+
+        {displayOverlayContent && overlayContent && (
+          <motion.div
+            className="tilted-card-overlay"
+            style={{
+              pointerEvents: 'auto',
+              cursor: 'default',
+              userSelect: 'none'
+            }}
+          >
+            {overlayContent}
+          </motion.div>
+        )}
       </motion.div>
 
-      {/* Lightweight bottom gradient bar for overlay content (doesn't block image) */}
-      {displayOverlayContent && overlayContent && (
-        <div className="absolute bottom-0 left-0 right-0 h-24 flex items-end justify-center pointer-events-none">
-          <div className="w-full max-w-xs p-3 bg-gradient-to-t from-black/40 to-transparent rounded-t-lg backdrop-blur-sm pointer-events-auto">
-            {overlayContent}
-          </div>
-        </div>
-      )}
-    </motion.div>
+   {showTooltip && (
+  <motion.figcaption
+    className="tilted-card-caption"
+    style={{
+      x,
+      y,
+      opacity,
+      rotate: rotateFigcaption,
+      cursor: 'default',
+      userSelect: 'none',
+      pointerEvents: 'auto'    
+    }}
+  >
+    {captionText}
+  </motion.figcaption>
+)}
+
+    </figure>
   );
 }

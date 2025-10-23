@@ -1,0 +1,18 @@
+﻿# Node modules
+node_modules/
+
+# Environment / secret files
+.env
+backend/serviceAccountKey.json
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build folders
+dist/
+build/
+node_modules

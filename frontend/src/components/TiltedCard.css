@@ -1,0 +1,118 @@
+.tilted-card-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+
+  cursor: default;
+  user-select: none;
+}
+
+.tilted-card-mobile-alert {
+  position: absolute;
+  top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .tilted-card-mobile-alert {
+    display: block;
+  }
+  .tilted-card-caption {
+    display: none;
+  }
+}
+
+.tilted-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+
+  cursor: default;
+  user-select: none;
+}
+
+.tilted-card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  border-radius: 15px;
+  will-change: transform;
+  transform: translateZ(0);
+  display: block;
+
+  cursor: default;
+  user-select: none;
+}
+
+.tilted-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  will-change: transform;
+  transform: translateZ(30px);
+  pointer-events: auto;
+
+  cursor: default;
+  user-select: none;
+}
+
+.tilted-card-caption {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 4px;
+  background-color: #fff;  
+  padding: 4px 10px;
+  font-size: 10px;
+  color: #2d2d2d;
+  opacity: 0;
+  z-index: 3;
+
+  cursor: default;
+  user-select: none;
+}
+/* vendor prefixed user-select + strong override */
+.tilted-card-figure,
+.tilted-card-figure * {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+
+  cursor: default !important;
+}
+
+/* Allow overlay children to be interactive (links/icons) but keep non-text cursor */
+.tilted-card-overlay,
+.tilted-card-overlay * {
+  pointer-events: auto !important;
+  cursor: default !important;
+}
+
+/* Make the caption non-selectable but allow its cursor to be applied */
+.tilted-card-caption {
+  pointer-events: auto;      /* <-- IMPORTANT: allow the caption to control cursor */
+  display: inline-block;     /* avoid odd inline text cursor behavior */
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  cursor: default !important;
+}
+
+/* If you have actionable links/icons inside overlay, explicitly set pointer cursor */
+.tilted-card-overlay a,
+.tilted-card-overlay button,
+.tilted-card-overlay .clickable {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}

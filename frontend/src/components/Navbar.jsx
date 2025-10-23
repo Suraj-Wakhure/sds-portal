@@ -14,6 +14,8 @@ export default function Navbar() {
       <ul className="flex space-x-6 !justify-center items-center [&>*]:!m-10">
         <li><Link to="/" className={linkClass("/")}>Home</Link></li>
         <li><Link to="/about" className={linkClass("/about")}>About</Link></li>
+        <li><Link to="/teams" className={linkClass("/teams")}>Team</Link></li>
+        <li><Link to="/projects" className={linkClass("/projects")}>Projects</Link></li>
       </ul>
     </nav>
   );
